@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redesign Meu INSS: Foco em Acessibilidade — Grupo ABPT | FURB</title>
+
+  <!-- Fonte Inter (Google Fonts) para máxima legibilidade -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS via CDN (não precisa instalar nada no computador) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Configuração da paleta de cores, fonte e modo escuro -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          colors: {
+            navy: '#13335A',       /* Azul marinho principal */
+            slateBlue: '#2C5282',  /* Azul acinzentado de apoio */
+            softBg: '#F8FAFC',     /* Fundo claro suave */
+            ink: '#1E293B',        /* Texto escuro principal */
+            conceito1: '#0F99A6',  /* Turquesa do Conceito 1 */
+            conceito2: '#D6A0EC',  /* Lilás do Conceito 2 */
+            conceito3: '#F9B44C',  /* Laranja do Conceito 3 */
+          }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-softBg text-ink dark:bg-slate-950 dark:text-slate-100 font-sans antialiased transition-colors duration-300 selection:bg-navy selection:text-white dark:selection:bg-sky-400 dark:selection:text-slate-950">
+
+  <!-- ===================================================================== -->
+  <!-- BARRA DE NAVEGAÇÃO FIXA NO TOPO (STICKY NAVBAR) + ACESSIBILIDADE      -->
+  <!-- ===================================================================== -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-300">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20 gap-3">
+
+        <!-- Identificação do Projeto / Grupo -->
+        <a href="#topo" class="flex items-center gap-2.5 group focus:outline-none focus:ring-2 focus:ring-slateBlue rounded-xl p-1">
+          <div class="w-9 h-9 rounded-xl bg-navy dark:bg-sky-500 text-white dark:text-slate-950 flex items-center justify-center font-extrabold text-sm tracking-tight shadow-sm group-hover:scale-105 transition-transform">
+            INSS
+          </div>
+          <div class="leading-tight">
+            <span class="block text-sm font-bold text-navy dark:text-white">Redesign Meu INSS</span>
+            <span class="block text-xs text-slate-500 dark:text-slate-400">Grupo ABPT • FURB</span>
+          </div>
+        </a>
+
+        <!-- Links de Navegação (Desktop) -->
+        <nav aria-label="Navegação principal" class="hidden lg:flex items-center gap-1">
+          <a href="#briefing" class="px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-navy dark:hover:text-sky-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors">Briefing</a>
+          <a href="#pesquisa" class="px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-navy dark:hover:text-sky-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors">Pesquisa</a>
+          <a href="#diretrizes" class="px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-navy dark:hover:text-sky-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors">Diretrizes</a>
+          <a href="#conceitos" class="px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-navy dark:hover:text-sky-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors">Conceitos</a>
+          <a href="#sketches" class="px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-navy dark:hover:text-sky-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors">Sketches</a>
+          <a href="#produto-final" class="px-3 py-2 text-sm font-semibold text-navy dark:text-sky-300 bg-slate-100 dark:bg-slate-800 hover:bg-navy hover:text-white dark:hover:bg-sky-500 dark:hover:text-slate-950 rounded-xl transition-colors">Produto Final</a>
+        </nav>
+
+        <!-- Controles de Acessibilidade (Tamanho da Fonte + Modo Escuro) -->
+        <div class="flex items-center gap-1.5 sm:gap-2">
+          <div class="flex items-center bg-slate-100 dark:bg-slate-800 rounded-xl p-1 border border-slate-200 dark:border-slate-700" role="group" aria-label="Controle de tamanho da fonte">
+            <button
+              type="button"
+              id="btn-font-dec"
+              onclick="alterarFonte(-1)"
+              title="Diminuir tamanho da letra"
+              aria-label="Diminuir tamanho da letra"
+              class="px-2.5 py-1.5 text-xs sm:text-sm font-bold text-navy dark:text-slate-100 hover:bg-white dark:hover:bg-slate-700 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-slateBlue"
+            >
+              A-
+            </button>
+            <button
+              type="button"
+              id="btn-font-inc"
+              onclick="alterarFonte(1)"
+              title="Aumentar tamanho da letra"
+              aria-label="Aumentar tamanho da letra"
+              class="px-2.5 py-1.5 text-xs sm:text-sm font-bold text-navy dark:text-slate-100 hover:bg-white dark:hover:bg-slate-700 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-slateBlue"
+            >
+              A+
+            </button>
+          </div>
+
+          <!-- Botão de Modo Escuro / Tons mais escuros -->
+          <button
+            type="button"
+            id="btn-dark-mode"
+            onclick="alternarModoEscuro()"
+            aria-label="Alternar modo escuro para conforto visual"
+            title="Alternar tons mais escuros"
+            class="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-navy text-white dark:bg-sky-400 dark:text-slate-950 hover:bg-slateBlue dark:hover:bg-sky-300 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slateBlue"
+          >
+            <!-- Ícone Lua (Modo Claro ativo) -->
+            <svg id="icone-lua" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" />
+            </svg>
+            <!-- Ícone Sol (Modo Escuro ativo) -->
+            <svg id="icone-sol" class="w-4 h-4 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="5" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+            </svg>
+            <span id="texto-tema" class="hidden sm:inline">Modo Escuro</span>
+          </button>
+
+          <!-- Botão Menu Mobile -->
+          <button
+            type="button"
+            id="btn-menu-mobile"
+            onclick="alternarMenuMobile()"
+            aria-expanded="false"
+            aria-controls="menu-mobile"
+            aria-label="Abrir menu de navegação"
+            class="lg:hidden p-2.5 rounded-xl text-navy dark:text-slate-100 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Menu Mobile Expansível -->
+      <nav id="menu-mobile" aria-label="Navegação mobile" class="hidden lg:hidden pb-4 pt-2 border-t border-slate-200 dark:border-slate-800">
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+          <a href="#briefing" onclick="fecharMenuMobile()" class="px-3 py-2.5 text-sm font-medium text-center text-slate-700 dark:text-slate-200 bg-slate-50 dark:bg-slate-800/70 rounded-xl hover:bg-navy hover:text-white transition-colors">Briefing</a>
+          <a href="#pesquisa" onclick="fecharMenuMobile()" class="px-3 py-2.5 text-sm font-medium text-center text-slate-700 dark:text-slate-200 bg-slate-50 dark:bg-slate-800/70 rounded-xl hover:bg-navy hover:text-white transition-colors">Pesquisa</a>
+          <a href="#diretrizes" onclick="fecharMenuMobile()" class="px-3 py-2.5 text-sm font-medium text-center text-slate-700 dark:text-slate-200 bg-slate-50 dark:bg-slate-800/70 rounded-xl hover:bg-navy hover:text-white transition-colors">Diretrizes</a>
+          <a href="#conceitos" onclick="fecharMenuMobile()" class="px-3 py-2.5 text-sm font-medium text-center text-slate-700 dark:text-slate-200 bg-slate-50 dark:bg-slate-800/70 rounded-xl hover:bg-navy hover:text-white transition-colors">Conceitos</a>
+          <a href="#sketches" onclick="fecharMenuMobile()" class="px-3 py-2.5 text-sm font-medium text-center text-slate-700 dark:text-slate-200 bg-slate-50 dark:bg-slate-800/70 rounded-xl hover:bg-navy hover:text-white transition-colors">Sketches</a>
+          <a href="#produto-final" onclick="fecharMenuMobile()" class="px-3 py-2.5 text-sm font-semibold text-center text-white bg-navy dark:bg-sky-500 dark:text-slate-950 rounded-xl">Produto Final</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- CONTEÚDO PRINCIPAL DO RELATÓRIO                                       -->
+  <!-- ===================================================================== -->
+  <main id="topo">
+
+    <!-- =================================================================== -->
+    <!-- CAPA / HERO                                                         -->
+    <!-- =================================================================== -->
+    <section class="relative overflow-hidden bg-gradient-to-b from-navy via-navy to-slateBlue dark:from-slate-900 dark:via-navy/90 dark:to-slate-950 text-white py-16 sm:py-24">
+      <!-- Elementos decorativos sutis de fundo -->
+      <div class="pointer-events-none absolute -top-24 -right-24 w-96 h-96 rounded-full bg-sky-400/10 blur-3xl"></div>
+      <div class="pointer-events-none absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-teal-400/10 blur-3xl"></div>
+
+      <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Tag superior -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-sky-100 text-xs sm:text-sm font-medium tracking-wide mb-6">
+          <span class="w-2 h-2 rounded-full bg-sky-300"></span>
+          Metodologia do Projeto de Design • FURB • Curso de Design
+        </div>
+
+        <!-- Título e Subtítulo -->
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight max-w-4xl">
+          Redesign Meu INSS: Foco em Acessibilidade
+        </h1>
+        <p class="mt-5 text-base sm:text-xl text-slate-200 max-w-3xl leading-relaxed">
+          Projeto desenvolvido pelo Grupo ABPT para tornar o acesso aos serviços previdenciários mais intuitivo, seguro e autônomo para o público idoso.
+        </p>
+
+        <!-- Cartões de Metadados do Projeto -->
+        <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4">
+            <span class="block text-xs uppercase tracking-wider text-sky-200 font-semibold">Instituição</span>
+            <p class="mt-1 text-sm sm:text-base font-semibold text-white">Universidade Regional de Blumenau (FURB)</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4">
+            <span class="block text-xs uppercase tracking-wider text-sky-200 font-semibold">Curso</span>
+            <p class="mt-1 text-sm sm:text-base font-semibold text-white">Design</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4">
+            <span class="block text-xs uppercase tracking-wider text-sky-200 font-semibold">Grupo</span>
+            <p class="mt-1 text-sm sm:text-base font-semibold text-white">ABPT</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4">
+            <span class="block text-xs uppercase tracking-wider text-sky-200 font-semibold">Tema</span>
+            <p class="mt-1 text-sm sm:text-base font-semibold text-white">Acessibilidade</p>
+          </div>
+        </div>
+
+        <!-- Cartão de Integrantes -->
+        <div class="mt-4 bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <div>
+            <span class="block text-xs uppercase tracking-wider text-sky-200 font-semibold">Integrantes</span>
+            <p class="mt-1 text-sm sm:text-base font-medium text-white">
+              Ana Caroline Wilmsen Alves, Bruno Filipe Schweigert, Pedro Nascimento Tierling e Thaís Nunes Miler
+            </p>
+          </div>
+          <a href="#briefing" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white text-navy font-semibold text-sm hover:bg-sky-50 transition-colors shrink-0 mt-2 sm:mt-0">
+            Iniciar leitura
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- SEÇÃO 1 — RESUMO DO BRIEFING                                        -->
+    <!-- =================================================================== -->
+    <section id="briefing" class="scroll-mt-24 py-16 sm:py-24">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Cabeçalho da Seção -->
+        <div class="max-w-3xl">
+          <span class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-navy/10 text-navy dark:bg-sky-400/15 dark:text-sky-300">
+            01 • Contextualização
+          </span>
+          <h2 class="mt-3 text-2xl sm:text-4xl font-extrabold text-navy dark:text-white tracking-tight">
+            Resumo do Briefing
+          </h2>
+        </div>
+
+        <!-- Texto Introdutório do Briefing -->
+        <div class="mt-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-sm">
+          <p class="text-base sm:text-lg leading-relaxed text-slate-700 dark:text-slate-200">
+            O problema identificado no briefing foi a dificuldade de navegação pelo aplicativo do governo “Meu INSS” apresentada, especialmente, por idosos, em grande parte por conta da sobrecarga visual da interface, que dificulta a leitura de textos e a interpretação dos ícones.
+          </p>
+        </div>
+
+        <!-- Perguntas Norteadoras -->
+        <div class="mt-10">
+          <h3 class="text-xl sm:text-2xl font-bold text-navy dark:text-white mb-6">
+            Perguntas norteadoras do projeto
+          </h3>
+          <ol class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <li class="flex items-start gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm hover:border-slateBlue/50 dark:hover:border-sky-400/50 transition-colors">
+              <span class="flex items-center justify-center w-8 h-8 rounded-xl bg-navy dark:bg-sky-500 text-white dark:text-slate-950 font-bold text-sm shrink-0">1</span>
+              <p class="text-slate-700 dark:text-slate-200 text-sm sm:text-base leading-relaxed">
+                Em qual tela do app atual se tem mais dificuldade?
+              </p>
+            </li>
+            <li class="flex items-start gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm hover:border-slateBlue/50 dark:hover:border-sky-400/50 transition-colors">
+              <span class="flex items-center justify-center w-8 h-8 rounded-xl bg-navy dark:bg-sky-500 text-white dark:text-slate-950 font-bold text-sm shrink-0">2</span>
+              <p class="text-slate-700 dark:text-slate-200 text-sm sm:text-base leading-relaxed">
+                Quais ícones são mais difíceis de entender/identificar?
+              </p>
+            </li>
+            <li class="flex items-start gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm hover:border-slateBlue/50 dark:hover:border-sky-400/50 transition-colors">
+              <span class="flex items-center justify-center w-8 h-8 rounded-xl bg-navy dark:bg-sky-500 text-white dark:text-slate-950 font-bold text-sm shrink-0">3</span>
+              <p class="text-slate-700 dark:text-slate-200 text-sm sm:text-base leading-relaxed">
+                Ícones muito semelhantes entre si (mesma aparência/cor) dificultam o entendimento das opções?
+              </p>
+            </li>
+            <li class="flex items-start gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm hover:border-slateBlue/50 dark:hover:border-sky-400/50 transition-colors">
+              <span class="flex items-center justify-center w-8 h-8 rounded-xl bg-navy dark:bg-sky-500 text-white dark:text-slate-950 font-bold text-sm shrink-0">4</span>
+              <p class="text-slate-700 dark:text-slate-200 text-sm sm:text-base leading-relaxed">
+                Textos muito pequenos dificultam a leitura?
+              </p>
+            </li>
+            <li class="flex items-start gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm hover:border-slateBlue/50 dark:hover:border-sky-400/50 transition-colors">
+              <span class="flex items-center justify-center w-8 h-8 rounded-xl bg-navy dark:bg-sky-500 text-white dark:text-slate-950 font-bold text-sm shrink-0">5</span>
+              <p class="text-slate-700 dark:text-slate-200 text-sm sm:text-base leading-relaxed">
+                Frases muito grandes dificultam o entendimento?
+              </p>
+            </li>
+            <li class="flex items-start gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm hover:border-slateBlue/50 dark:hover:border-sky-400/50 transition-colors">
+              <span class="flex items-center justify-center w-8 h-8 rounded-xl bg-navy dark:bg-sky-500 text-white dark:text-slate-950 font-bold text-sm shrink-0">6</span>
+              <p class="text-slate-700 dark:text-slate-200 text-sm sm:text-base leading-relaxed">
+                Palavras diferentes dificultam a compreensão e o senso de se localizar dentro da interface atual?
+              </p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- SEÇÃO 2 — RESUMO DAS RESPOSTAS DA PESQUISA                          -->
+    <!-- =================================================================== -->
+    <section id="pesquisa" class="scroll-mt-24 py-16 sm:py-24 bg-slate-100/80 dark:bg-slate-900/50 border-y border-slate-200 dark:border-slate-800">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Cabeçalho da Seção -->
+        <div class="max-w-3xl">
+          <span class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-navy/10 text-navy dark:bg-sky-400/15 dark:text-sky-300">
+            02 • Diagnóstico com Usuários
+          </span>
+          <h2 class="mt-3 text-2xl sm:text-4xl font-extrabold text-navy dark:text-white tracking-tight">
+            Resumo das Respostas da Pesquisa
+          </h2>
+          <p class="mt-3 text-slate-600 dark:text-slate-300 text-base">
+            Principais indicadores levantados junto ao público-alvo e familiares que auxiliam no uso do aplicativo.
+          </p>
+        </div>
+
+        <!-- Grade de Cartões de Métricas -->
+        <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+          <!-- Card 1 -->
+          <article class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
+            <div>
+              <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-semibold bg-rose-100 text-rose-800 dark:bg-rose-500/20 dark:text-rose-300">
+                Maiores Barreiras
+              </span>
+              <div class="mt-4 text-4xl sm:text-5xl font-extrabold text-navy dark:text-white tracking-tight">
+                91,7%
+              </div>
+              <p class="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+                travam ou desistem na etapa de reconhecimento facial.
+              </p>
+            </div>
+            <div class="mt-5">
+              <div class="w-full h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden" role="progressbar" aria-valuenow="91.7" aria-valuemin="0" aria-valuemax="100">
+                <div class="h-full bg-rose-600 dark:bg-rose-400 rounded-full" style="width: 91.7%"></div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
+            <div>
+              <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-semibold bg-amber-100 text-amber-900 dark:bg-amber-500/20 dark:text-amber-300">
+                Insegurança e Medo
+              </span>
+              <div class="mt-4 text-4xl sm:text-5xl font-extrabold text-navy dark:text-white tracking-tight">
+                83,3%
+              </div>
+              <p class="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+                já deixaram de usar o aplicativo por medo de apertar o botão errado e prejudicar o benefício.
+              </p>
+            </div>
+            <div class="mt-5">
+              <div class="w-full h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden" role="progressbar" aria-valuenow="83.3" aria-valuemin="0" aria-valuemax="100">
+                <div class="h-full bg-amber-500 dark:bg-amber-400 rounded-full" style="width: 83.3%"></div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
+            <div>
+              <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-semibold bg-navy/10 text-navy dark:bg-sky-500/20 dark:text-sky-300">
+                Esforço Familiar
+              </span>
+              <div class="mt-4 text-4xl sm:text-5xl font-extrabold text-navy dark:text-white tracking-tight">
+                75%
+              </div>
+              <p class="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+                dos familiares relatam alto esforço (níveis 4 e 5) para auxiliar os idosos nas tarefas.
+              </p>
+            </div>
+            <div class="mt-5">
+              <div class="w-full h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                <div class="h-full bg-navy dark:bg-sky-400 rounded-full" style="width: 75%"></div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
+            <div>
+              <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-semibold bg-teal-100 text-teal-900 dark:bg-teal-500/20 dark:text-teal-300">
+                Foco Principal
+              </span>
+              <div class="mt-4 text-4xl sm:text-5xl font-extrabold text-navy dark:text-white tracking-tight">
+                66,7%
+              </div>
+              <p class="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+                abrem o aplicativo prioritariamente para consultar o extrato de pagamento.
+              </p>
+            </div>
+            <div class="mt-5">
+              <div class="w-full h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden" role="progressbar" aria-valuenow="66.7" aria-valuemin="0" aria-valuemax="100">
+                <div class="h-full bg-teal-600 dark:bg-teal-400 rounded-full" style="width: 66.7%"></div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 5 -->
+          <article class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
+            <div>
+              <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-200 text-slate-800 dark:bg-slate-700 dark:text-slate-200">
+                Nomes dos Botões
+              </span>
+              <div class="mt-4 text-4xl sm:text-5xl font-extrabold text-navy dark:text-white tracking-tight">
+                58,3%
+              </div>
+              <p class="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+                apontam os nomes dos botões como difíceis de entender.
+              </p>
+            </div>
+            <div class="mt-5">
+              <div class="w-full h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden" role="progressbar" aria-valuenow="58.3" aria-valuemin="0" aria-valuemax="100">
+                <div class="h-full bg-slateBlue dark:bg-sky-500 rounded-full" style="width: 58.3%"></div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 6 -->
+          <article class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
+            <div>
+              <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-semibold bg-purple-100 text-purple-900 dark:bg-purple-500/20 dark:text-purple-300">
+                Botão de LIBRAS
+              </span>
+              <div class="mt-4 text-4xl sm:text-5xl font-extrabold text-navy dark:text-white tracking-tight">
+                58,3%
+              </div>
+              <p class="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+                afirmam que o botão de LIBRAS atrapalha o toque em outros comandos.
+              </p>
+            </div>
+            <div class="mt-5">
+              <div class="w-full h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden" role="progressbar" aria-valuenow="58.3" aria-valuemin="0" aria-valuemax="100">
+                <div class="h-full bg-purple-600 dark:bg-purple-400 rounded-full" style="width: 58.3%"></div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 7 (Ocupa largura inteira no desktop para equilibrar o grid de 7 itens) -->
+          <article class="sm:col-span-2 lg:col-span-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="flex-1">
+              <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-semibold bg-sky-100 text-navy dark:bg-sky-500/20 dark:text-sky-300">
+                Dependência de Suporte
+              </span>
+              <div class="mt-3 flex flex-wrap items-baseline gap-4">
+                <span class="text-4xl sm:text-5xl font-extrabold text-navy dark:text-white tracking-tight">50%</span>
+                <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+                  dos idosos pedem ajuda mensalmente para usar o aplicativo.
+                </p>
+              </div>
+            </div>
+            <div class="w-full md:w-72 shrink-0">
+              <div class="flex justify-between text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5">
+                <span>Proporção</span>
+                <span>50%</span>
+              </div>
+              <div class="w-full h-3 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                <div class="h-full bg-slateBlue dark:bg-sky-400 rounded-full" style="width: 50%"></div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Caixa de Destaque: Melhorias Sugeridas -->
+        <div class="mt-8 bg-navy dark:bg-slate-800 text-white rounded-3xl p-6 sm:p-8 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div class="flex items-start gap-4">
+            <div class="w-11 h-11 rounded-2xl bg-white/15 flex items-center justify-center shrink-0 mt-0.5">
+              <svg class="w-6 h-6 text-sky-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-sky-200">Melhorias Sugeridas pelos Respondentes</h3>
+              <p class="mt-1.5 text-sm sm:text-base text-slate-100 leading-relaxed">
+                Os respondentes destacaram a necessidade de reduzir o tempo de resposta do sistema e implementar tons mais escuros para aliviar a visão.
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onclick="alternarModoEscuro()"
+            class="px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white text-sm font-semibold border border-white/20 transition-colors shrink-0"
+          >
+            Testar tons escuros agora
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- SEÇÃO 3 — DIRETRIZES                                                -->
+    <!-- =================================================================== -->
+    <section id="diretrizes" class="scroll-mt-24 py-16 sm:py-24">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Cabeçalho da Seção -->
+        <div class="max-w-3xl">
+          <span class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-navy/10 text-navy dark:bg-sky-400/15 dark:text-sky-300">
+            03 • Requisitos de Projeto
+          </span>
+          <h2 class="mt-3 text-2xl sm:text-4xl font-extrabold text-navy dark:text-white tracking-tight">
+            Diretrizes
+          </h2>
+          <p class="mt-3 text-slate-600 dark:text-slate-300 text-base">
+            Cinco princípios fundamentais definidos a partir da pesquisa para orientar todas as decisões de interface.
+          </p>
+        </div>
+
+        <!-- 5 Cards Numerados -->
+        <div class="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          <!-- Diretriz 1 -->
+          <article class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-7 shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-11 h-11 rounded-2xl bg-navy text-white dark:bg-sky-500 dark:text-slate-950 font-extrabold text-lg flex items-center justify-center mb-5">
+              01
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-navy dark:text-white">
+              Redução da carga cognitiva
+            </h3>
+            <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+              A quantidade excessiva de opções e informações na tela inicial causa confusão nos usuários idosos, dificultando a navegação e gerando poluição visual. Por isso, o projeto deve apresentar de 4 a 6 cartões grandes e visuais, destacando os serviços essenciais, como extratos e agendamentos.
+            </p>
+          </article>
+
+          <!-- Diretriz 2 -->
+          <article class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-7 shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-11 h-11 rounded-2xl bg-navy text-white dark:bg-sky-500 dark:text-slate-950 font-extrabold text-lg flex items-center justify-center mb-5">
+              02
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-navy dark:text-white">
+              Linguagem acessível
+            </h3>
+            <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+              Termos burocráticos e textos longos dificultam a compreensão, principalmente para pessoas com baixa alfabetização ou dislexia. Para resolver esse problema, o aplicativo deve utilizar palavras simples, comuns no dia a dia, acompanhadas de ícones claros e fáceis de identificar.
+            </p>
+          </article>
+
+          <!-- Diretriz 3 -->
+          <article class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-7 shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-11 h-11 rounded-2xl bg-navy text-white dark:bg-sky-500 dark:text-slate-950 font-extrabold text-lg flex items-center justify-center mb-5">
+              03
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-navy dark:text-white">
+              Segurança psicológica
+            </h3>
+            <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+              O medo de clicar no botão errado e causar algum problema faz com que muitos usuários deixem de utilizar o aplicativo. Para transmitir mais segurança, o projeto deve incluir telas de confirmação simples, cores tranquilas e sinais visuais que indiquem quando uma ação foi realizada com sucesso.
+            </p>
+          </article>
+
+          <!-- Diretriz 4 -->
+          <article class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-7 shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-11 h-11 rounded-2xl bg-navy text-white dark:bg-sky-500 dark:text-slate-950 font-extrabold text-lg flex items-center justify-center mb-5">
+              04
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-navy dark:text-white">
+              Acessibilidade funcional
+            </h3>
+            <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+              Recursos como o botão de LIBRAS, quando mal posicionados, podem atrapalhar a navegação e dificultar o uso do aplicativo. Por isso, esses recursos, assim como os seletores de contraste, devem ficar em posições fixas e discretas no cabeçalho superior.
+            </p>
+          </article>
+
+          <!-- Diretriz 5 -->
+          <article class="md:col-span-2 lg:col-span-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-7 shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-11 h-11 rounded-2xl bg-navy text-white dark:bg-sky-500 dark:text-slate-950 font-extrabold text-lg flex items-center justify-center mb-5">
+              05
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-navy dark:text-white">
+              Foco na autonomia
+            </h3>
+            <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+              Muitos idosos dependem da ajuda de familiares para realizar tarefas simples no aplicativo, demonstrando a falta de autonomia da interface atual. Assim, o projeto deve oferecer caminhos diretos e intuitivos para consultas essenciais, como verificar se um pagamento foi realizado, permitindo que o usuário conclua essas tarefas sozinho em até três toques.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- SEÇÃO 4 — CONCEITOS (TABELAS HTML REAIS COM AS CORES ORIGINAIS)     -->
+    <!-- =================================================================== -->
+    <section id="conceitos" class="scroll-mt-24 py-16 sm:py-24 bg-slate-100/80 dark:bg-slate-900/50 border-y border-slate-200 dark:border-slate-800">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Cabeçalho da Seção -->
+        <div class="max-w-3xl">
+          <span class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-navy/10 text-navy dark:bg-sky-400/15 dark:text-sky-300">
+            04 • Geração de Alternativas
+          </span>
+          <h2 class="mt-3 text-2xl sm:text-4xl font-extrabold text-navy dark:text-white tracking-tight">
+            Conceitos
+          </h2>
+          <p class="mt-3 text-slate-600 dark:text-slate-300 text-base">
+            Síntese comparativa dos três conceitos elaborados pelo grupo e avaliados por meio da matriz ponderada.
+          </p>
+        </div>
+
+        <!-- Lista das 3 Tabelas de Conceitos -->
+        <div class="mt-10 space-y-8">
+
+          <!-- ==================== TABELA CONCEITO 1 (TURQUESA) ==================== -->
+          <div class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-md border border-slate-200 dark:border-slate-700">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr>
+                    <th colspan="2" class="bg-conceito1 text-white px-6 py-5 text-3xl sm:text-4xl font-extrabold tracking-tight">
+                      Conceito 1
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 dark:divide-slate-700 text-sm sm:text-base">
+                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+                    <th scope="row" class="w-2/5 sm:w-1/3 px-5 sm:px-6 py-4 font-semibold text-slate-700 dark:text-slate-200 border-r border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/40">
+                      Nome Curto
+                    </th>
+                    <td class="px-5 sm:px-6 py-4 text-ink dark:text-slate-100 font-medium">
+                      Simples
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+                    <th scope="row" class="px-5 sm:px-6 py-4 font-semibold text-slate-700 dark:text-slate-200 border-r border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/40">
+                      Frase conceito
+                    </th>
+                    <td class="px-5 sm:px-6 py-4 text-ink dark:text-slate-100">
+                      Uma interface que seja intuitiva para o público
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+                    <th scope="row" class="px-5 sm:px-6 py-4 font-semibold text-slate-700 dark:text-slate-200 border-r border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/40">
+                      Diretrizes que Atende
+                    </th>
+                    <td class="px-5 sm:px-6 py-4 text-ink dark:text-slate-100">
+                      Redução da carga cognitiva
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+                    <th scope="row" class="px-5 sm:px-6 py-4 font-semibold text-slate-700 dark:text-slate-200 border-r border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/40">
+                      Diretrizes que atende mal
+                    </th>
+                    <td class="px-5 sm:px-6 py-4 text-ink dark:text-slate-100">
+                      Acessibilidade Funcional (Botão de Libras)
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+                    <th scope="row" class="px-5 sm:px-6 py-4 font-semibold text-slate-700 dark:text-slate-200 border-r border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/40">
+                      Representação
+                    </th>
+                    <td class="px-5 sm:px-6 py-4 text-ink dark:text-slate-100">
+                      Matriz Ponderada
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ==================== TABELA CONCEITO 2 (LILÁS) ==================== -->
+          <div class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-md border border-slate-200 dark:border-slate-700">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr>
+                    <th colspan="2" class="bg-conceito2 text-white px-6 py-5 text-3xl sm:text-4xl font-extrabold tracking-tight drop-shadow-sm">
+                      Conceito 2
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 dark:divide-slate-700 text-sm sm:text-base">
+                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+                    <th scope="row" class="w-2/5 sm:w-1/3 px-5 sm:px-6 py-4 font-semibold text-slate-700 dark:text-slate-200 border-r border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/40">
+                      Nome Curto
+                    </th>
+                    <td class="px-5 sm:px-6 py-4 text-ink dark:text-slate-100 font-medium">
+                      Chamativo
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+                    <th scope="row" class="px-5 sm:px-6 py-4 font-semibold text-slate-700 dark:text-slate-200 border-r border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/40">
+                      Frase conceito
+                    </th>
+                    <td class="px-5 sm:px-6 py-4 text-ink dark:text-slate-100">
+                      Serviços que se destaquem para o nosso público-alvo
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+                    <th scope="row" class="px-5 sm:px-6 py-4 font-semibold text-slate-700 dark:text-slate-200 border-r border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/40">
+                      Diretrizes que Atende
+                    </th>
+                    <td class="px-5 sm:px-6 py-4 text-ink dark:text-slate-100">
+                      Foco na autonomia (consultas principais)
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+                    <th scope="row" class="px-5 sm:px-6 py-4 font-semibold text-slate-700 dark:text-slate-200 border-r border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/40">
+                      Diretrizes que atende mal
+                    </th>
+                    <td class="px-5 sm:px-6 py-4 text-ink dark:text-slate-100">
+                      Diminuição da carga cognitiva
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+                    <th scope="row" class="px-5 sm:px-6 py-4 font-semibold text-slate-700 dark:text-slate-200 border-r border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/40">
+                      Representação
+                    </th>
+                    <td class="px-5 sm:px-6 py-4 text-ink dark:text-slate-100">
+                      Matriz Ponderada
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ==================== TABELA CONCEITO 3 (LARANJA) ==================== -->
+          <div class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-md border border-slate-200 dark:border-slate-700">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr>
+                    <th colspan="2" class="bg-conceito3 text-white px-6 py-5 text-3xl sm:text-4xl font-extrabold tracking-tight drop-shadow-sm">
+                      Conceito 3
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 dark:divide-slate-700 text-sm sm:text-base">
+                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+                    <th scope="row" class="w-2/5 sm:w-1/3 px-5 sm:px-6 py-4 font-semibold text-slate-700 dark:text-slate-200 border-r border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/40">
+                      Nome Curto
+                    </th>
+                    <td class="px-5 sm:px-6 py-4 text-ink dark:text-slate-100 font-medium">
+                      Acessível
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+                    <th scope="row" class="px-5 sm:px-6 py-4 font-semibold text-slate-700 dark:text-slate-200 border-r border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/40">
+                      Frase conceito
+                    </th>
+                    <td class="px-5 sm:px-6 py-4 text-ink dark:text-slate-100">
+                      Uma função que amplie o acesso à informação por meio da inclusão linguística
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+                    <th scope="row" class="px-5 sm:px-6 py-4 font-semibold text-slate-700 dark:text-slate-200 border-r border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/40">
+                      Diretrizes que Atende
+                    </th>
+                    <td class="px-5 sm:px-6 py-4 text-ink dark:text-slate-100">
+                      Acessibilidade funcional (botão de LIBRAS)
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+                    <th scope="row" class="px-5 sm:px-6 py-4 font-semibold text-slate-700 dark:text-slate-200 border-r border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/40">
+                      Diretrizes que atende mal
+                    </th>
+                    <td class="px-5 sm:px-6 py-4 text-ink dark:text-slate-100">
+                      Diminuição da carga cognitiva
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors">
+                    <th scope="row" class="px-5 sm:px-6 py-4 font-semibold text-slate-700 dark:text-slate-200 border-r border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-800/40">
+                      Representação
+                    </th>
+                    <td class="px-5 sm:px-6 py-4 text-ink dark:text-slate-100">
+                      Matriz Ponderada
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+<!-- =================================================================== -->
+    <!-- SEÇÃO 5 — SKETCHES (COM ESPAÇOS PRONTOS PARA SUAS IMAGENS LOCAIS)   -->
+    <!-- =================================================================== -->
+    <section id="sketches" class="scroll-mt-24 py-16 sm:py-24">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Cabeçalho da Seção -->
+        <div class="max-w-3xl">
+          <span class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-navy/10 text-navy dark:bg-sky-400/15 dark:text-sky-300">
+            05 • Exploração Visual
+          </span>
+          <h2 class="mt-3 text-2xl sm:text-4xl font-extrabold text-navy dark:text-white tracking-tight">
+            Sketches
+          </h2>
+          <p class="mt-3 text-slate-600 dark:text-slate-300 text-base">
+            Estudos iniciais em papel explorando a organização da tela, hierarquia dos serviços principais e posicionamento dos recursos de acessibilidade.
+          </p>
+        </div>
+<section id="sketches" class="py-16 scroll-mt-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-8">Sketches</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- IMAGEM 1 (já está com o seu arquivo) -->
+      <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm">
+        <img src="imagens/sketchs1.png" alt="Sketch 1" class="w-full h-auto block">
+      </div>
+
+      <!-- IMAGEM 2 (troque só o nome do arquivo dentro das aspas) -->
+      <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm">
+        <img src="imagens/sketchs2.png" alt="Sketch 2" class="w-full h-auto block">
+      </div>
+
+      <!-- IMAGEM 3 (troque só o nome do arquivo dentro das aspas) -->
+      <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm">
+        <img src="imagens/sketchs3.png" alt="Sketch 3" class="w-full h-auto block">
+      </div>
+
+    </div>
+  </div>
+</section>
+   
+
+     <!-- =================================================================== -->
+    <!-- SEÇÃO 6 — PRODUTO FINAL (5 MOLDURAS DE CELULAR + LINK PROTÓTIPO)    -->
+    <!-- =================================================================== -->
+   <section id="produto-final" class="py-16 scroll-mt-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+      <h2 class="text-3xl font-bold text-slate-900 dark:text-white">Produto Final</h2>
+      <a href="prototipo.html" class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-sm transition">
+        Abrir protótipo interativo
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+
+      <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm">
+        <img src="imagens/inicial.png" alt="Tela inicial" class="w-full h-auto block">
+        <p class="p-3 text-center text-sm font-semibold text-slate-700 dark:text-slate-200">Tela inicial</p>
+      </div>
+
+      <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm">
+        <img src="imagens/extratos.png" alt="Extratos de pagamento" class="w-full h-auto block">
+        <p class="p-3 text-center text-sm font-semibold text-slate-700 dark:text-slate-200">Extratos de pagamento</p>
+      </div>
+
+      <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm">
+        <img src="imagens/agendar.png" alt="Agendar perícia" class="w-full h-auto block">
+        <p class="p-3 text-center text-sm font-semibold text-slate-700 dark:text-slate-200">Agendar perícia</p>
+      </div>
+
+      <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm">
+        <img src="imagens/prova.png" alt="Prova de vida digital" class="w-full h-auto block">
+        <p class="p-3 text-center text-sm font-semibold text-slate-700 dark:text-slate-200">Prova de vida digital</p>
+      </div>
+
+      <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm">
+        <img src="imagens/dados.png" alt="Meus dados cadastrais" class="w-full h-auto block">
+        <p class="p-3 text-center text-sm font-semibold text-slate-700 dark:text-slate-200">Meus dados cadastrais</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+        <!-- ================================================================= -->
+        <!-- BANNER DE DESTAQUE PARA O PROTÓTIPO INTERATIVO (prototipo.html)   -->
+        <!--                                                                   -->
+        <!-- IMPORTANTE: O botão abaixo aponta para "prototipo.html", que      -->
+        <!-- será a segunda página do projeto contendo o celular clicável      -->
+        <!-- interativo. Basta salvar o arquivo prototipo.html na mesma pasta  -->
+        <!-- deste index.html que o link funcionará automaticamente!           -->
+        <!-- ================================================================= -->
+        <div class="mt-16 bg-gradient-to-r from-navy via-slateBlue to-navy dark:from-slate-800 dark:via-navy dark:to-slate-800 rounded-3xl p-8 sm:p-10 text-white shadow-xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+          <div class="max-w-2xl">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 text-sky-200 text-xs font-bold uppercase tracking-wider">
+              Navegação Clicável
+            </span>
+            <h3 class="mt-3 text-2xl sm:text-3xl font-extrabold tracking-tight">
+              Experimente o Protótipo Interativo
+            </h3>
+            <p class="mt-2 text-sm sm:text-base text-slate-200 leading-relaxed">
+              Navegue pela simulação do aplicativo Meu INSS redesenhado no celular, testando os fluxos de extrato de pagamento, agendamento de perícia, prova de vida digital e dados cadastrais.
+            </p>
+          </div>
+
+          <!-- LINK PARA A SEGUNDA PÁGINA (prototipo.html) -->
+          <a
+            href="prototipo.html"
+            class="inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl bg-white text-navy font-bold text-base hover:bg-sky-50 hover:scale-[1.02] active:scale-[0.99] transition-all shadow-lg shrink-0"
+          >
+            <span>Abrir Protótipo no Celular</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- RODAPÉ                                                                -->
+  <!-- ===================================================================== -->
+  <footer class="bg-navy dark:bg-slate-950 text-slate-300 border-t border-slate-800 py-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <div>
+        <p class="font-bold text-white text-base">Grupo ABPT — Design FURB</p>
+        <p class="text-sm text-slate-400 mt-1">
+          Metodologia do Projeto de Design • Universidade Regional de Blumenau (FURB)
+        </p>
+      </div>
+      <a href="#topo" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-medium transition-colors">
+        Voltar ao topo
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+        </svg>
+      </a>
+    </div>
+  </footer>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL DE ZOOM PARA AMPLIAR SKETCHES E TELAS FINAIS                    -->
+  <!-- ===================================================================== -->
+  <div id="modal-zoom" onclick="fecharZoom()" class="hidden fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm p-4 sm:p-8 flex items-center justify-center">
+    <div onclick="event.stopPropagation()" class="relative max-w-4xl w-full bg-white dark:bg-slate-900 rounded-3xl p-4 sm:p-6 shadow-2xl">
+      <div class="flex items-center justify-between gap-4 mb-3">
+        <h4 id="modal-zoom-titulo" class="text-base sm:text-lg font-bold text-navy dark:text-white truncate">Visualização</h4>
+        <button
+          type="button"
+          onclick="fecharZoom()"
+          aria-label="Fechar visualização ampliada"
+          class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="max-h-[75vh] overflow-auto flex items-center justify-center rounded-2xl bg-slate-100 dark:bg-slate-950 p-2">
+        <img id="modal-zoom-img" src="" alt="" class="max-h-[70vh] w-auto object-contain rounded-xl" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Notificação discreta (Toast) para feedback de acessibilidade -->
+  <div id="toast-aviso" role="status" aria-live="polite" class="pointer-events-none fixed bottom-5 right-5 z-50 opacity-0 translate-y-3 transition-all duration-300 bg-navy dark:bg-sky-400 text-white dark:text-slate-950 px-4 py-2.5 rounded-xl shadow-lg text-sm font-semibold">
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- SCRIPTS INTERATIVOS (ACESSIBILIDADE, PREVIEW DE IMAGENS E ZOOM)       -->
+  <!-- ===================================================================== -->
+  <script>
+    // -----------------------------------------------------------------------
+    // 1. CONTROLE DE TAMANHO DA FONTE (A- / A+)
+    // -----------------------------------------------------------------------
+    let tamanhoFonteAtual = 16; // Tamanho padrão em pixels (1rem = 16px)
+    const TAMANHO_MIN = 14;
+    const TAMANHO_MAX = 20;
+
+    function alterarFonte(direcao) {
+      const novoTamanho = tamanhoFonteAtual + direcao;
+      if (novoTamanho >= TAMANHO_MIN && novoTamanho <= TAMANHO_MAX) {
+        tamanhoFonteAtual = novoTamanho;
+        document.documentElement.style.fontSize = tamanhoFonteAtual + 'px';
+        mostrarToast('Tamanho da letra: ' + Math.round((tamanhoFonteAtual / 16) * 100) + '%');
+      } else if (direcao > 0) {
+        mostrarToast('Tamanho máximo de letra atingido');
+      } else {
+        mostrarToast('Tamanho mínimo de letra atingido');
+      }
+    }
+
+    // -----------------------------------------------------------------------
+    // 2. MODO ESCURO (TONS MAIS ESCUROS PARA CONFORTO VISUAL)
+    // -----------------------------------------------------------------------
+    function atualizarInterfaceTema(escuro) {
+      const iconeLua = document.getElementById('icone-lua');
+      const iconeSol = document.getElementById('icone-sol');
+      const textoTema = document.getElementById('texto-tema');
+
+      if (escuro) {
+        document.documentElement.classList.add('dark');
+        iconeLua.classList.add('hidden');
+        iconeSol.classList.remove('hidden');
+        textoTema.textContent = 'Modo Claro';
+      } else {
+        document.documentElement.classList.remove('dark');
+        iconeLua.classList.remove('hidden');
+        iconeSol.classList.add('hidden');
+        textoTema.textContent = 'Modo Escuro';
+      }
+    }
+
+    function alternarModoEscuro() {
+      try {
+        const estaEscuro = document.documentElement.classList.contains('dark');
+        const proximoEstado = !estaEscuro;
+        atualizarInterfaceTema(proximoEstado);
+        localStorage.setItem('tema-meu-inss', proximoEstado ? 'escuro' : 'claro');
+        mostrarToast(proximoEstado ? 'Modo escuro ativado (conforto visual)' : 'Modo claro ativado');
+      } catch (erro) {
+        // Caso o navegador bloqueie localStorage em iframes/arquivos locais
+        const estaEscuro = document.documentElement.classList.contains('dark');
+        atualizarInterfaceTema(!estaEscuro);
+      }
+    }
+
+    // Restaura a preferência salva ao carregar a página
+    window.addEventListener('DOMContentLoaded', () => {
+      try {
+        const temaSalvo = localStorage.getItem('tema-meu-inss');
+        if (temaSalvo === 'escuro') {
+          atualizarInterfaceTema(true);
+        }
+      } catch (erro) {
+        // Segue no tema claro padrão
+      }
+    });
+
+    // -----------------------------------------------------------------------
+    // 3. MENU MOBILE
+    // -----------------------------------------------------------------------
+    function alternarMenuMobile() {
+      const menu = document.getElementById('menu-mobile');
+      const botao = document.getElementById('btn-menu-mobile');
+      const aberto = !menu.classList.contains('hidden');
+      menu.classList.toggle('hidden');
+      botao.setAttribute('aria-expanded', String(!aberto));
+    }
+
+    function fecharMenuMobile() {
+      const menu = document.getElementById('menu-mobile');
+      const botao = document.getElementById('btn-menu-mobile');
+      menu.classList.add('hidden');
+      botao.setAttribute('aria-expanded', 'false');
+    }
+
+    // -----------------------------------------------------------------------
+    // 4. TRATAMENTO INTELIGENTE DE IMAGENS (FALLBACK + PRÉ-VISUALIZAÇÃO)
+    // -----------------------------------------------------------------------
+    // Se a imagem ainda não existir na pasta "imagens/", esconde o <img> e exibe o aviso tracejado
+    function mostrarPlaceholder(imgElement) {
+      imgElement.classList.add('hidden');
+      const container = imgElement.closest('.media-slot');
+      if (container) {
+        const placeholder = container.querySelector('.placeholder-box');
+        if (placeholder) placeholder.classList.remove('hidden');
+      }
+    }
+
+    // Quando a imagem existe (ou é carregada na pré-visualização), exibe o <img> e esconde o aviso
+    function mostrarImagem(imgElement) {
+      imgElement.classList.remove('hidden');
+      const container = imgElement.closest('.media-slot');
+      if (container) {
+        const placeholder = container.querySelector('.placeholder-box');
+        if (placeholder) placeholder.classList.add('hidden');
+      }
+    }
+
+    // Permite selecionar uma imagem do computador para testar no navegador na hora
+    function previsualizarImagem(input) {
+      try {
+        if (!input.files || !input.files[0]) return;
+        const arquivo = input.files[0];
+        const card = input.closest('article');
+        const img = card ? card.querySelector('.media-slot img') : null;
+        if (!img) return;
+
+        const urlTemporaria = URL.createObjectURL(arquivo);
+        img.src = urlTemporaria;
+        mostrarImagem(img);
+        mostrarToast('Pré-visualização carregada: ' + arquivo.name);
+      } catch (erro) {
+        mostrarToast('Não foi possível carregar esta imagem.');
+      }
+    }
+
+    // -----------------------------------------------------------------------
+    // 5. MODAL DE ZOOM (CLICAR NA IMAGEM PARA AMPLIAR)
+    // -----------------------------------------------------------------------
+    function abrirZoom(imgElement) {
+      if (imgElement.classList.contains('hidden')) return;
+      const modal = document.getElementById('modal-zoom');
+      const modalImg = document.getElementById('modal-zoom-img');
+      const modalTitulo = document.getElementById('modal-zoom-titulo');
+
+      modalImg.src = imgElement.src;
+      modalImg.alt = imgElement.alt;
+      modalTitulo.textContent = imgElement.alt || 'Visualização ampliada';
+      modal.classList.remove('hidden');
+    }
+
+    function fecharZoom() {
+      const modal = document.getElementById('modal-zoom');
+      modal.classList.add('hidden');
+    }
+
+    // -----------------------------------------------------------------------
+    // 6. NOTIFICAÇÃO DISCRETA (TOAST)
+    // -----------------------------------------------------------------------
+    let timerToast = null;
+    function mostrarToast(mensagem) {
+      const toast = document.getElementById('toast-aviso');
+      toast.textContent = mensagem;
+      toast.classList.remove('opacity-0', 'translate-y-3');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      clearTimeout(timerToast);
+      timerToast = setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'translate-y-3');
+      }, 2400);
+    }
+  </script>
+</body>
